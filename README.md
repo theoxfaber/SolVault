@@ -1,13 +1,41 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## WebWallet - A Modern Solana Web3 Wallet
+
+A beautiful, secure, and user-friendly non-custodial Solana wallet built with Next.js, TypeScript, and Tailwind CSS.
+
+![WebWallet Screenshot](public/screenshot.png)
+
+## Features
+
+- 🔒 Non-custodial wallet - you own your private keys
+- ✨ Beautiful, responsive UI with dark/light mode
+- 🚀 Fast and secure authentication flow
+- 💰 View SOL balance and transaction history
+- 🔄 Send and receive SOL and SPL tokens
+- 📱 Mobile-friendly design
+- 🛡️ Secure key management with encryption
+- 🌈 Smooth animations and transitions
+
+## Tech Stack
+
+- **Frontend**: Next.js 13, TypeScript, Tailwind CSS
+- **State Management**: React Context API
+- **Animations**: Framer Motion
+- **UI Components**: Radix UI, Headless UI
+- **Web3**: @solana/web3.js, @solana/wallet-adapter
+- **Crypto**: tweetnacl, bip39, bip32
+- **Form Handling**: React Hook Form
+- **Icons**: React Icons
+- **Notifications**: React Hot Toast
+
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
+- Node.js 16.8 or later
+- npm or yarn
+- A modern web browser with Solana wallet support (e.g., Phantom, Solflare)
 # or
 pnpm dev
 # or

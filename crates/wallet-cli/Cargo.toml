@@ -1,5 +1,8 @@
 [package]
-name = "wallet-cli"
+name = "solvault"
+description = "A non-custodial Solana terminal wallet built entirely in Rust."
+repository = "https://github.com/theoxfaber/SolVault"
+license = "MIT"
 version.workspace = true
 edition.workspace = true
 
@@ -8,7 +11,7 @@ name = "solvault"
 path = "src/main.rs"
 
 [dependencies]
-wallet-core = { path = "../wallet-core" }
+solvault-core = { path = "../wallet-core", version = "0.1.0" }
 tokio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

@@ -1,5 +1,7 @@
 # SolVault (formerly WebWallet)
 
+[![Crates.io](https://img.shields.io/crates/v/solvault.svg)](https://crates.io/crates/solvault)
+
 A non-custodial Solana terminal wallet built entirely in Rust. Manage keys, send SOL, and interact with the Solana blockchain from the command line.
 
 ## Features

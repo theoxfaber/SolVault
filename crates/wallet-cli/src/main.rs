@@ -4,11 +4,11 @@ use bip39::Mnemonic;
 use colored::Colorize;
 use dialoguer::{Input, Password, Select};
 use solana_sdk::signer::Signer;
-use wallet_core::keypair;
-use wallet_core::rpc;
-use wallet_core::transaction;
-use wallet_core::vault;
-use wallet_core::WalletAccount;
+use solvault_core::keypair;
+use solvault_core::rpc;
+use solvault_core::transaction;
+use solvault_core::vault;
+use solvault_core::WalletAccount;
 
 fn main() -> anyhow::Result<()> {
     println!();

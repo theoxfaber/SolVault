@@ -1,5 +1,8 @@
 [package]
-name = "wallet-core"
+name = "solvault-core"
+description = "Core library for SolVault, a non-custodial Solana terminal wallet"
+repository = "https://github.com/theoxfaber/SolVault"
+license = "MIT"
 version.workspace = true
 edition.workspace = true
 

@@ -20,6 +20,9 @@ jobs:
       with:
         components: clippy
         
+    - name: Rust Cache
+      uses: Swatinem/rust-cache@v2
+        
     - name: Build
       run: cargo build --verbose
       

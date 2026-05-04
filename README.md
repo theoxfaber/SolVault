@@ -1,6 +1,6 @@
-# WebWallet
+# SolVault (formerly WebWallet)
 
-A non-custodial Solana wallet built entirely in Rust. Manage keys, send SOL, and interact with the Solana blockchain from the command line.
+A non-custodial Solana terminal wallet built entirely in Rust. Manage keys, send SOL, and interact with the Solana blockchain from the command line.
 
 ## Features
 
@@ -35,7 +35,7 @@ cargo build --release
 cargo run --release
 
 # Or run the binary directly
-./target/release/webwallet
+./target/release/solvault
 ```
 
 ## Security Model
@@ -53,11 +53,11 @@ The mnemonic is never stored in plaintext. It's encrypted with a password-derive
 
 ### Create a New Wallet
 ```
-$ webwallet
+$ solvault
 
 ╔══════════════════════════════════════╗
-║       WebWallet — Solana Wallet       ║
-║    Non-custodial • CLI • Rust-native  ║
+║        SolVault — Solana Wallet      ║
+║    Non-custodial • CLI • Rust-native ║
 ╚══════════════════════════════════════╝
 
 ? No wallet found. What would you like to do?

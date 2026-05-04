@@ -13,8 +13,8 @@ use wallet_core::WalletAccount;
 fn main() -> anyhow::Result<()> {
     println!();
     println!("{}", "╔══════════════════════════════════════╗".purple());
-    println!("{}", "║       WebWallet — Solana Wallet       ║".purple());
-    println!("{}", "║    Non-custodial • CLI • Rust-native  ║".purple());
+    println!("{}", "║        SolVault — Solana Wallet      ║".purple());
+    println!("{}", "║    Non-custodial • CLI • Rust-native ║".purple());
     println!("{}", "╚══════════════════════════════════════╝".purple());
     println!();
 

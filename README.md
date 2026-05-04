@@ -1,64 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WebWallet
 
-## WebWallet - A Modern Solana Web3 Wallet
-
-A beautiful, secure, and user-friendly non-custodial Solana wallet built with Next.js, TypeScript, and Tailwind CSS.
-
-![WebWallet Screenshot](public/screenshot.png)
+A non-custodial Solana wallet built entirely in Rust. Manage keys, send SOL, and interact with the Solana blockchain from the command line.
 
 ## Features
 
-- 🔒 Non-custodial wallet - you own your private keys
-- ✨ Beautiful, responsive UI with dark/light mode
-- 🚀 Fast and secure authentication flow
-- 💰 View SOL balance and transaction history
-- 🔄 Send and receive SOL and SPL tokens
-- 📱 Mobile-friendly design
-- 🛡️ Secure key management with encryption
-- 🌈 Smooth animations and transitions
+- **Non-custodial** — your private keys never leave your machine
+- **BIP39 mnemonic** — 24-word recovery phrase generation
+- **Secure encryption** — AES-256-GCM with Argon2id key derivation
+- **HD derivation** — SLIP-0010 ed25519 key derivation (m/44'/501'/n'/0')
+- **SOL transfers** — send and receive SOL on devnet/mainnet
+- **Airdrop** — request devnet SOL for testing
+- **Interactive CLI** — beautiful terminal UI with `dialoguer`
 
-## Tech Stack
+## Architecture
 
-- **Frontend**: Next.js 13, TypeScript, Tailwind CSS
-- **State Management**: React Context API
-- **Animations**: Framer Motion
-- **UI Components**: Radix UI, Headless UI
-- **Web3**: @solana/web3.js, @solana/wallet-adapter
-- **Crypto**: tweetnacl, bip39, bip32
-- **Form Handling**: React Hook Form
-- **Icons**: React Icons
-- **Notifications**: React Hot Toast
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16.8 or later
-- npm or yarn
-- A modern web browser with Solana wallet support (e.g., Phantom, Solflare)
-# or
-pnpm dev
-# or
-bun dev
+```
+crates/
+├── wallet-core/    Library: key management, encryption, RPC, transactions
+│   ├── keypair.rs      BIP39 mnemonic + SLIP-0010 derivation
+│   ├── vault.rs        AES-256-GCM encrypted vault storage
+│   ├── rpc.rs          Solana RPC client wrapper
+│   └── transaction.rs  SOL transfer signing + submission
+└── wallet-cli/     Binary: interactive CLI wallet
+    └── main.rs         Create/import/unlock flows + main menu
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Build
+cargo build --release
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Run
+cargo run --release
 
-## Learn More
+# Or run the binary directly
+./target/release/webwallet
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Security Model
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| Key Derivation | SLIP-0010 (HMAC-SHA512) | BIP39 → ed25519 keypair |
+| Password KDF | Argon2id | Memory-hard password hashing |
+| Encryption | AES-256-GCM | Authenticated encryption of mnemonic |
+| Storage | `~/.webwallet/vault.json` | Encrypted vault file |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The mnemonic is never stored in plaintext. It's encrypted with a password-derived key and only held in memory while the wallet is unlocked.
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Create a New Wallet
+```
+$ webwallet
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+╔══════════════════════════════════════╗
+║       WebWallet — Solana Wallet       ║
+║    Non-custodial • CLI • Rust-native  ║
+╚══════════════════════════════════════╝
+
+? No wallet found. What would you like to do?
+> Create New Wallet
+  Import from Mnemonic
+  Exit
+```
+
+### Unlock & Interact
+```
+? Enter your password: ********
+✓ Wallet unlocked!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Balance: 2.500000000 SOL
+  Address: 7dGBRN...1K5v
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+? Choose an action
+> View Full Address
+  Copy Address
+  Send SOL
+  Request Airdrop (Devnet)
+  Refresh Balance
+  Lock & Exit
+```
+
+## Testing
+
+```bash
+cargo test          # Unit tests (keypair derivation, vault crypto, RPC utils)
+cargo clippy        # Lint check
+```
+
+## Dependencies
+
+- `solana-sdk` / `solana-client` — Solana blockchain interaction
+- `bip39` — Mnemonic phrase generation
+- `ed25519-dalek` — Ed25519 signing
+- `aes-gcm` — Authenticated encryption
+- `argon2` — Password-based key derivation
+- `dialoguer` — Interactive terminal prompts
+- `colored` — Terminal colors
+
+## License
+
+MIT

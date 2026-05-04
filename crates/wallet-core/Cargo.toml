@@ -1,0 +1,28 @@
+[package]
+name = "wallet-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+tokio = { workspace = true }
+
+# Solana
+solana-sdk = "2"
+solana-client = "2"
+
+# Crypto
+bip39 = { version = "2", features = ["rand"] }
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+aes-gcm = "0.10"
+argon2 = "0.5"
+rand = "0.8"
+base64 = "0.22"
+bs58 = "0.5"
+
+# Derivation
+hmac = "0.12"
+sha2 = "0.10"
+dirs = "6"

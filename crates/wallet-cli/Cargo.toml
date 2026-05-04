@@ -1,0 +1,21 @@
+[package]
+name = "wallet-cli"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "webwallet"
+path = "src/main.rs"
+
+[dependencies]
+wallet-core = { path = "../wallet-core" }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+dialoguer = { version = "0.11", features = ["password"] }
+colored = "3"
+dirs = "6"
+solana-sdk = "2"
+solana-client = "2"
+bip39 = { version = "2", features = ["rand"] }

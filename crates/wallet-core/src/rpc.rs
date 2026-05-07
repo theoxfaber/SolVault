@@ -14,8 +14,7 @@ pub fn new_client(url: &str) -> RpcClient {
 
 /// Get the SOL balance for an address.
 pub fn get_balance(client: &RpcClient, address: &str) -> anyhow::Result<f64> {
-    let pubkey = Pubkey::from_str(address)
-        .map_err(|e| anyhow::anyhow!("Invalid address: {e}"))?;
+    let pubkey = Pubkey::from_str(address).map_err(|e| anyhow::anyhow!("Invalid address: {e}"))?;
     let lamports = client.get_balance(&pubkey)?;
     Ok(lamports as f64 / LAMPORTS_PER_SOL as f64)
 }
@@ -26,8 +25,7 @@ pub fn request_airdrop(
     address: &str,
     sol_amount: f64,
 ) -> anyhow::Result<String> {
-    let pubkey = Pubkey::from_str(address)
-        .map_err(|e| anyhow::anyhow!("Invalid address: {e}"))?;
+    let pubkey = Pubkey::from_str(address).map_err(|e| anyhow::anyhow!("Invalid address: {e}"))?;
     let lamports = (sol_amount * LAMPORTS_PER_SOL as f64) as u64;
 
     let sig = client.request_airdrop(&pubkey, lamports)?;
@@ -72,9 +70,7 @@ mod tests {
 
     #[test]
     fn test_valid_address() {
-        assert!(is_valid_address(
-            "11111111111111111111111111111111"
-        ));
+        assert!(is_valid_address("11111111111111111111111111111111"));
     }
 
     #[test]

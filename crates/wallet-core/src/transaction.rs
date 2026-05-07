@@ -33,11 +33,8 @@ pub fn send_sol(
     }
 
     // Use the system program transfer instruction
-    let instruction = solana_sdk::system_instruction::transfer(
-        &from_keypair.pubkey(),
-        &to_pubkey,
-        lamports,
-    );
+    let instruction =
+        solana_sdk::system_instruction::transfer(&from_keypair.pubkey(), &to_pubkey, lamports);
 
     let recent_blockhash = client.get_latest_blockhash()?;
     let transaction = Transaction::new_signed_with_payer(

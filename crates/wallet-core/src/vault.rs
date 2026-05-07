@@ -77,7 +77,8 @@ pub fn decrypt_mnemonic(vault: &EncryptedVault, password: &str) -> anyhow::Resul
         .decrypt(nonce, ciphertext.as_ref())
         .map_err(|_| anyhow::anyhow!("Decryption failed — wrong password or corrupted data"))?;
 
-    String::from_utf8(plaintext).map_err(|e| anyhow::anyhow!("Invalid UTF-8 in decrypted data: {e}"))
+    String::from_utf8(plaintext)
+        .map_err(|e| anyhow::anyhow!("Invalid UTF-8 in decrypted data: {e}"))
 }
 
 /// Save an encrypted vault to a file path.

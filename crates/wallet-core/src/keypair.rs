@@ -23,8 +23,7 @@ pub fn derive_keypair(mnemonic: &Mnemonic, index: u32) -> Keypair {
     let seed = mnemonic.to_seed("");
 
     // SLIP-0010 master key derivation
-    let mut mac =
-        HmacSha512::new_from_slice(b"ed25519 seed").expect("HMAC accepts any key length");
+    let mut mac = HmacSha512::new_from_slice(b"ed25519 seed").expect("HMAC accepts any key length");
     mac.update(&seed);
     let master = mac.finalize().into_bytes();
 
@@ -44,8 +43,7 @@ pub fn derive_keypair(mnemonic: &Mnemonic, index: u32) -> Keypair {
         data.extend_from_slice(&key);
         data.extend_from_slice(&segment.to_be_bytes());
 
-        let mut mac =
-            HmacSha512::new_from_slice(&chain_code).expect("HMAC accepts any key length");
+        let mut mac = HmacSha512::new_from_slice(&chain_code).expect("HMAC accepts any key length");
         mac.update(&data);
         let derived = mac.finalize().into_bytes();
 
@@ -53,11 +51,8 @@ pub fn derive_keypair(mnemonic: &Mnemonic, index: u32) -> Keypair {
         chain_code = derived[32..].to_vec();
     }
 
-    let signing_key = SigningKey::from_bytes(
-        key.as_slice()
-            .try_into()
-            .expect("Key should be 32 bytes"),
-    );
+    let signing_key =
+        SigningKey::from_bytes(key.as_slice().try_into().expect("Key should be 32 bytes"));
     let verifying_key = signing_key.verifying_key();
 
     // Construct Solana keypair from the 64-byte representation

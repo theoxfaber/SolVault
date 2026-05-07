@@ -55,13 +55,25 @@ fn create_wallet(vault_path: &PathBuf) -> anyhow::Result<()> {
 
     let mnemonic = keypair::generate_mnemonic();
 
-    println!("\n{}", "⚠️  IMPORTANT: Write down your recovery phrase!".yellow().bold());
-    println!("{}", "   If you lose this, your funds are gone forever.".yellow());
+    println!(
+        "\n{}",
+        "⚠️  IMPORTANT: Write down your recovery phrase!"
+            .yellow()
+            .bold()
+    );
+    println!(
+        "{}",
+        "   If you lose this, your funds are gone forever.".yellow()
+    );
     println!();
 
     let words: Vec<&str> = mnemonic.words().collect();
     for (i, word) in words.iter().enumerate() {
-        print!("{:>2}. {:<15}", (i + 1).to_string().dimmed(), word.white().bold());
+        print!(
+            "{:>2}. {:<15}",
+            (i + 1).to_string().dimmed(),
+            word.white().bold()
+        );
         if (i + 1) % 4 == 0 {
             println!();
         }
@@ -91,7 +103,10 @@ fn create_wallet(vault_path: &PathBuf) -> anyhow::Result<()> {
 
     println!("\n{}", "Your Solana address:".cyan());
     println!("  {}", account.public_key.white().bold());
-    println!("\n{}", format!("Vault saved to: {}", vault_path.display()).dimmed());
+    println!(
+        "\n{}",
+        format!("Vault saved to: {}", vault_path.display()).dimmed()
+    );
 
     // Enter main menu
     main_menu(&mnemonic, &password, vault_path)?;
@@ -106,8 +121,8 @@ fn import_wallet(vault_path: &PathBuf) -> anyhow::Result<()> {
         .with_prompt("Enter your 12 or 24 word recovery phrase")
         .interact_text()?;
 
-    let mnemonic = Mnemonic::parse(&phrase)
-        .map_err(|e| anyhow::anyhow!("Invalid mnemonic: {e}"))?;
+    let mnemonic =
+        Mnemonic::parse(&phrase).map_err(|e| anyhow::anyhow!("Invalid mnemonic: {e}"))?;
 
     let password = Password::new()
         .with_prompt("Set a password to encrypt your wallet")
@@ -167,7 +182,11 @@ fn main_menu(mnemonic: &Mnemonic, _password: &str, _vault_path: &PathBuf) -> any
                 println!("  {} {}", "Balance:".cyan(), "(unable to fetch)".yellow());
             }
         }
-        println!("  {} {}", "Address:".cyan(), rpc::format_address(&address).dimmed());
+        println!(
+            "  {} {}",
+            "Address:".cyan(),
+            rpc::format_address(&address).dimmed()
+        );
         println!("{}", "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".dimmed());
 
         let options = vec![
@@ -190,7 +209,10 @@ fn main_menu(mnemonic: &Mnemonic, _password: &str, _vault_path: &PathBuf) -> any
                 println!("\n  {}", address.white().bold());
             }
             1 => {
-                println!("\n  {}", "Address printed above — copy it manually from the terminal.".dimmed());
+                println!(
+                    "\n  {}",
+                    "Address printed above — copy it manually from the terminal.".dimmed()
+                );
                 println!("  {}", address.white().bold());
             }
             2 => {
@@ -206,9 +228,7 @@ fn main_menu(mnemonic: &Mnemonic, _password: &str, _vault_path: &PathBuf) -> any
                     })
                     .interact_text()?;
 
-                let amount: f64 = Input::new()
-                    .with_prompt("Amount (SOL)")
-                    .interact_text()?;
+                let amount: f64 = Input::new().with_prompt("Amount (SOL)").interact_text()?;
 
                 println!("{}", "Sending transaction...".yellow());
                 match transaction::send_sol(&client, &kp, &to_addr, amount) {
